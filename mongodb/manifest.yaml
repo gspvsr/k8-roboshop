@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongodb
+  namespace: roboshop
   labels: # belongs to deployment
     app: mongodb
     tier: db
@@ -29,9 +30,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mongodb
+  namespace: roboshop
 spec: 
   selector:
-    app: frontend
+     app: mongodb
+     tier: db
+     project: roboshop
   ports:
   - name: mongodb-port
     protocol: TCP
