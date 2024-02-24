@@ -14,14 +14,13 @@ spec:
       app: mongodb
       tier: db
       project: roboshop
-  template: # This is the pod defination.
+  template: # This is the pod definition.
     metadata:
       labels:
-      app: mongodb
-      tier: db
-      project: roboshop
+        app: mongodb
+        tier: db
+        project: roboshop
     spec:
       containers:
       - name: mongodb
         image: gspvsr/mongodb:1.0.0
-      
