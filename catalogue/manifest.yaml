@@ -40,9 +40,9 @@ spec:
     tier: app
     project: roboshop
   ports:
-  - name: http
+  - name: mongodb-port
     protocol: TCP
-    port: 80 # This is the port for external access
+    port: 8080 # This is the port for external access
     targetPort: 8080 # This is the port your application is listening on inside the container
 ---
 apiVersion: v1
