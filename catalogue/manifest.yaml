@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: catalogue
   namespace: roboshop
-  labels: # belongs to deployment
+  labels:
     app: catalogue
     tier: app
     project: roboshop
@@ -11,11 +11,11 @@ metadata:
 spec:
   replicas: 1
   selector:
-    matchLabels: # these labels should match with pod
+    matchLabels:
       app: catalogue
       tier: app
       project: roboshop
-  template: # This is the pod definition.
+  template:
     metadata:
       labels:
         app: catalogue
@@ -40,18 +40,16 @@ spec:
     tier: app
     project: roboshop
   ports:
-  - name: catalogue-port
+  - name: http
     protocol: TCP
-    port: 8080 # This port belongs to services
-    targetPort: 8080 # This port belongs to container
+    port: 80 # This is the port for external access
+    targetPort: 8080 # This is the port your application is listening on inside the container
 ---
 apiVersion: v1
-kind : ConfigMap
+kind: ConfigMap
 metadata:
   name: catalogue
   namespace: roboshop
 data:
-  MONGO: "true" # we need to keep true in double quotes
-  MONGO_URL: "mongodb://mongodb:27017/catalogue" # Protocol:service-name:service-port/schema
-
-  
+  MONGO: "true"
+  MONGO_URL: "mongodb://mongodb:27017/catalogue"
