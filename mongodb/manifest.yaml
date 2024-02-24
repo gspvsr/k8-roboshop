@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+  labels: # belongs to deployment
+    app: mongodb
+    tier: db
+    project: roboshop
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels: # these labels should match with pod
+      app: mongodb
+      tier: db
+      project: roboshop
+
+  template: # This is the pod defination.
+    metadata:
+      labels:
+      app: mongodb
+      tier: db
+      project: roboshop
+
+    spec:
+      containers:
+      - name: mongodb
+        image: gspvsr/mongodb:1.0.0
+      
