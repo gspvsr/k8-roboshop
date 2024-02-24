@@ -95,7 +95,7 @@ kind: Deployment
 metadata:
   name: web
   namespace: roboshop
-  labels: # these labels belong to deployment
+  labels: # Corrected indentation for the "labels" field
     app: web
     tier: app
     project: roboshop
