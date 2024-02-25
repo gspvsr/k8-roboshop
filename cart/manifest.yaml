@@ -3,18 +3,18 @@ kind: Deployment
 metadata:
   name: cart
   namespace: roboshop
-  labels: # these labels belong to deployment
+  labels:
     app: cart
     tier: app
     project: roboshop
 spec:
   replicas: 1
   selector:
-    matchLabels: # these labels should match with pod
+    matchLabels:
       app: cart
       tier: app
       project: roboshop
-  template: # this is the pod definition
+  template:
     metadata:
       labels:
         app: cart
@@ -41,8 +41,8 @@ spec:
   ports:
   - name: mongodb-port
     protocol: TCP
-    port: 8080 # this port belongs to service
-    targetPort: 8080 # this port belongs to container
+    port: 8080
+    targetPort: 8080
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -51,5 +51,5 @@ metadata:
   namespace: roboshop
 data:
   REDIS_HOST: "redis"
-  CATALOGUE_HOST: catalogue
+  CATALOGUE_HOST: "catalogue"
   CATALOGUE_PORT: "8080"
