@@ -89,45 +89,47 @@ data:
             access_log off;
         }
     }
+
+    }
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web
   namespace: roboshop
-  labels: # Corrected indentation for the "labels" field
+  labels: # these labels belong to deployment
     app: web
-    tier: app
+    tier: web
     project: roboshop
-  spec:
-    replicas: 1
-    selector:
-      matchLabels: # these labels should match with pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels: # these labels should match with pod
+      app: web
+      tier: web
+      project: roboshop
+  template: # this is the pod definition
+    metadata:
+      labels:
         app: web
-        tier: app
+        tier: web
         project: roboshop
-    template: # this is the pod definition
-      metadata:
-        labels:
-          app: web
-          tier: app
-          project: roboshop
-      spec:
-        volumes:
-            - name: nginx-conf
-              configMap:
-                name: nginx
-                items:
-                  - key: nginx.conf
-                    path: nginx.conf
-        containers:
-        - name: web
-          image: gspvsr/web:1.0.0
-          volumeMounts:
-        - name: nginx-conf
+    spec:
+      volumes:
+      - name: nginx-conf
+        configMap:
+          name: nginx-conf
+          items:
+            - key: nginx.conf
+              path: nginx.conf
+      containers:
+      - name: web
+        image: gspvsr/web:1.0.0
+        volumeMounts:
+        - name: nginx-conf # name of the valume we created above.
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
-          readonly: true
+          readOnly: true
 ---
 apiVersion: v1
 kind: Service
@@ -135,13 +137,12 @@ metadata:
   name: web
   namespace: roboshop
 spec:
-  type: LoadBalancer
   selector:
-    app: web
-    tier: app
+    app: LoadBalancer
+    tier: web
     project: roboshop
   ports:
   - name: web-port
     protocol: TCP
     port: 80 # this port belongs to service
-    targetPort: 80 # This port belongs to container
+    targetPort: 80 # this port belongs to container
