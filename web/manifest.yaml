@@ -137,8 +137,9 @@ metadata:
   name: web
   namespace: roboshop
 spec:
+  type: LoadBalancer
   selector:
-    app: LoadBalancer
+    app: web
     tier: web
     project: roboshop
   ports:
