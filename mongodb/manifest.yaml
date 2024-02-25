@@ -7,7 +7,6 @@ metadata:
     app: mongodb
     tier: db
     project: roboshop
-
 spec:
   replicas: 1
   selector:
