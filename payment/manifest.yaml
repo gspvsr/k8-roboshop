@@ -55,8 +55,7 @@ data:
   USER_HOST: "user"
   USER_PORT: "80:80"
   AMQP_HOST: "rabbitmq"
-  AMQP_USER: "roboshop"
-  AMQP_PASS: "roboshop123"
+ # generally VM we are creating user, but in docker it will take a default, no need to create
 
 
 
