@@ -104,7 +104,7 @@ data:
           proxy_pass http://payment:8080/;
         }
 
-            location /nginx_status {
+        location /nginx_status {
             stub_status on;
             access_log off;
         }
@@ -140,13 +140,20 @@ spec:
         configMap:
           name: nginx
           items:
-            - key: nginx.conf
-              path: nginx.conf
+          - key: nginx.conf
+            path: nginx.conf
       containers:
-      - name: web
-        image: gspvsr/web:1.0.0
+      - name: catalogue
+        image: joindevops/web:1.0.0
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "68Mi"
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
         volumeMounts:
-        - name: nginx-conf # name of the valume we created above.
+        - name: nginx-conf # name of the volume you created above
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
           readOnly: true
